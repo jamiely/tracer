@@ -9,12 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    private var traceView: TraceView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        traceView = TraceView(frame: view.frame)
+        traceView.backgroundColor = UIColor.green
+        view.addSubview(traceView)
     }
-
-
 }
 
