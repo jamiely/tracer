@@ -11,6 +11,7 @@ import UIKit
 struct Line {
     let start: CGPoint
     let end: CGPoint
+    let color: CGColor
 }
 
 class TraceView: UIView {
@@ -84,7 +85,8 @@ class TraceView: UIView {
         touches.forEach {
             let start = $0.previousLocation(in: self)
             let end = $0.location(in: self)
-            self.lines.append(Line(start: start, end: end))
+            self.lines.append(Line(
+                start: start, end: end, color: UIColor.black.cgColor))
         }
         setNeedsDisplay()
     }
@@ -108,7 +110,7 @@ class TraceView: UIView {
     private func drawLine(context: CGContext, line: Line) {
         context.move(to: line.start)
         context.addLine(to: line.end)
-        context.setStrokeColor(UIColor.black.cgColor)
+        context.setStrokeColor(line.color)
         context.strokePath()
     }
 }
