@@ -85,10 +85,28 @@ class TraceView: UIView {
         touches.forEach {
             let start = $0.previousLocation(in: self)
             let end = $0.location(in: self)
-            self.lines.append(Line(
-                start: start, end: end, color: UIColor.black.cgColor))
+            let color = colorForPoints(start, end)
+            self.lines.append(Line(start: start, end: end, color: color))
         }
         setNeedsDisplay()
+    }
+    
+    private func colorForPoints(_ pts: CGPoint...) -> CGColor {
+        if pts.allSatisfy(isPointWithinBounds) {
+            return UIColor.black.cgColor
+        }
+        
+        return UIColor.red.cgColor
+    }
+    
+    private func isPointWithinBounds(_ pt: CGPoint) -> Bool {
+        let threshold: CGFloat = 75
+        return expectedPath.contains { ept in
+            let dx = pt.x - ept.x
+            let dy = pt.y - ept.y
+            let distance = sqrt(dx * dx + dy * dy)
+            return distance < threshold
+        }
     }
 
     override func draw(_ rect: CGRect) {
