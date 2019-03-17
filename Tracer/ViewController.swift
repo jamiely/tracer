@@ -15,7 +15,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         traceView = TraceView(frame: view.frame)
-        traceView.backgroundColor = UIColor.green
         view.addSubview(traceView)
     }
 }

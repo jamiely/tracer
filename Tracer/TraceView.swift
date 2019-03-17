@@ -35,7 +35,7 @@ class TraceView: UIView {
             return
         }
         
-        context.setFillColor(UIColor.red.cgColor)
+        context.setFillColor(UIColor.white.cgColor)
         context.fill(expectedPathView.bounds)
         
         context.setStrokeColor(UIColor.blue.cgColor)
@@ -72,10 +72,10 @@ class TraceView: UIView {
     private func commonInit() {
         addSubview(expectedPathView)
         expectedPath = [
-            CGPoint(x: 1, y: 1),
             CGPoint(x: 100, y: 100),
-            CGPoint(x: 1, y: 200),
-            CGPoint(x: 100, y: 300)
+            CGPoint(x: 200, y: 200),
+            CGPoint(x: 100, y: 300),
+            CGPoint(x: 200, y: 400)
         ]
         expectedPathView.alpha = 0.5
     }
@@ -90,18 +90,25 @@ class TraceView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        lines.forEach(drawLine)
-    }
-    
-    private func drawLine(line: Line) {
         guard let context = UIGraphicsGetCurrentContext() else {
             print("ERROR: no context available")
             return
         }
+        
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(bounds)
+        
+        lines.forEach {
+            drawLine(context: context, line: $0)
+        }
+        
+        UIGraphicsEndImageContext()
+    }
+    
+    private func drawLine(context: CGContext, line: Line) {
         context.move(to: line.start)
         context.addLine(to: line.end)
         context.setStrokeColor(UIColor.black.cgColor)
         context.strokePath()
-        UIGraphicsEndImageContext()
     }
 }
