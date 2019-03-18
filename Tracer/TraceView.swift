@@ -11,7 +11,7 @@ import UIKit
 struct Line {
     let start: CGPoint
     let end: CGPoint
-    let color: CGColor
+    let outOfBounds: Bool
 }
 
 class TraceView: UIView {
@@ -21,11 +21,14 @@ class TraceView: UIView {
     private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
     private let maxDistance: CGFloat = 10
+    private var pendingPoints: Array<CGPoint>
+    private var isComplete: Bool { return pendingPoints.isEmpty }
     
     var expectedPath: Array<CGPoint> {
         get { return _expectedPath }
         set {
             _expectedPath = withAddedWayPoints(maxDistance: maxDistance, path: newValue)
+            pendingPoints = Array<CGPoint>(_expectedPath)
             drawExpectedPath(points: newValue)
         }
     }
@@ -119,20 +122,22 @@ class TraceView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        lines = Array<Line>()
-        _expectedPath = Array<CGPoint>()
+        lines = []
+        _expectedPath = []
         expectedPathView = UIImageView(coder: aDecoder)!
         drawingView = UIImageView(coder: aDecoder)!
+        pendingPoints = []
         
         super.init(coder: aDecoder)
         commonInit()
     }
     
     override init(frame: CGRect) {
-        lines = Array<Line>()
-        _expectedPath = Array<CGPoint>()
+        lines = []
+        _expectedPath = []
         expectedPathView = UIImageView(frame: frame)
         drawingView = UIImageView(frame: frame)
+        pendingPoints = []
         
         super.init(frame: frame)
         commonInit()
@@ -157,12 +162,27 @@ class TraceView: UIView {
         touches.forEach {
             let start = $0.previousLocation(in: self)
             let end = $0.location(in: self)
-            let color = colorForPoints(start, end)
-            let line = Line(start: start, end: end, color: color)
+            let isOutOfBounds = ![start, end].allSatisfy(isPointWithinBounds)
+            let line = Line(start: start, end: end, outOfBounds: isOutOfBounds)
             print("line: \(line)")
             self.lines.append(line)
+            removeFromPending(pt: start)
+            removeFromPending(pt: end)
         }
         setNeedsDisplay()
+    }
+    
+    private func removeFromPending(pt: CGPoint) {
+        var toRemove: Set<Int> = []
+        pendingPoints.enumerated().forEach { entry in
+            let (offset, element) = entry
+            let distance = getDistance(start: element, end: pt)
+            if distance > maxDistance { return }
+            
+            toRemove.insert(offset)
+        }
+        
+        toRemove.forEach { pendingPoints.remove(at: $0) }
     }
     
     private func colorForPoints(_ pts: CGPoint...) -> CGColor {
@@ -187,6 +207,7 @@ class TraceView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
+        let overrideColor = isComplete ? UIColor.green.cgColor : nil
         UIGraphicsBeginImageContext(drawingView.bounds.size)
         guard let context = UIGraphicsGetCurrentContext() else {
             print("ERROR: no context available")
@@ -197,7 +218,7 @@ class TraceView: UIView {
 //        context.fill(bounds)
         
         lines.forEach {
-            drawLine(context: context, line: $0)
+            drawLine(context: context, line: $0, overrideColor: overrideColor)
         }
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -205,10 +226,14 @@ class TraceView: UIView {
         UIGraphicsEndImageContext()
     }
     
-    private func drawLine(context: CGContext, line: Line) {
+    private func drawLine(context: CGContext, line: Line, overrideColor: CGColor?) {
+        var color = UIColor.black.cgColor
+        if line.outOfBounds { color = UIColor.red.cgColor }
+        else if let overrideColor = overrideColor { color = overrideColor }
+        
         context.move(to: line.start)
         context.addLine(to: line.end)
-        context.setStrokeColor(line.color)
+        context.setStrokeColor(color)
         context.strokePath()
     }
 }
