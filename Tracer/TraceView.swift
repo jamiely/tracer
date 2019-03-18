@@ -18,14 +18,66 @@ class TraceView: UIView {
     private var lines: Array<Line>
     private var _expectedPath: Array<CGPoint>
     private var expectedPathView: UIImageView
+    private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
+    private let maxDistance: CGFloat = 10
     
     var expectedPath: Array<CGPoint> {
         get { return _expectedPath }
         set {
-            _expectedPath = newValue
+            _expectedPath = withAddedWayPoints(maxDistance: maxDistance, path: newValue)
             drawExpectedPath(points: newValue)
         }
+    }
+    
+    private func withAddedWayPoints(maxDistance: CGFloat, path: Array<CGPoint>) -> Array<CGPoint> {
+        
+        guard var last = path.first else {
+            return path
+        }
+        
+        var newPath = Array<CGPoint>()
+        newPath.append(last)
+        
+        path[1..<path.count].forEach { pt in
+            let waypoints = calculateWaypoints(maxDistance: maxDistance, start: last, end: pt)
+            newPath.append(contentsOf: waypoints)
+            newPath.append(pt)
+            last = pt
+        }
+        
+        return newPath
+    }
+    
+    /// Returns the waypoints that should be inserted
+    /// between two points so that the resulting
+    /// points are less than the given distance apart.
+    private func calculateWaypoints(maxDistance: CGFloat, start: CGPoint, end: CGPoint) -> Array<CGPoint> {
+        
+        let distance = getDistance(start: start, end: end)
+        
+        if distance < maxDistance {
+            return Array<CGPoint>()
+        }
+        
+        // the points are too far apart, so we need to add
+        // a waypoint
+        let midpoint = getMidpoint(start: start, end: end)
+        // then we want to check recursively get the waypoints
+        // between the midpoint and the start and end
+        
+        return
+            calculateWaypoints(maxDistance: maxDistance,
+                         start: start, end: midpoint) +
+            [midpoint] +
+            calculateWaypoints(maxDistance: maxDistance,
+                        start: midpoint, end: end)
+    }
+    
+    private func getMidpoint(start: CGPoint, end: CGPoint) -> CGPoint {
+        let x = (start.x + end.x) / 2.0
+        let y = (start.y + end.y) / 2.0
+        return CGPoint(x: x, y: y)
     }
     
     var backgroundView: UIImageView? {
@@ -70,6 +122,7 @@ class TraceView: UIView {
         lines = Array<Line>()
         _expectedPath = Array<CGPoint>()
         expectedPathView = UIImageView(coder: aDecoder)!
+        drawingView = UIImageView(coder: aDecoder)!
         
         super.init(coder: aDecoder)
         commonInit()
@@ -79,6 +132,7 @@ class TraceView: UIView {
         lines = Array<Line>()
         _expectedPath = Array<CGPoint>()
         expectedPathView = UIImageView(frame: frame)
+        drawingView = UIImageView(frame: frame)
         
         super.init(frame: frame)
         commonInit()
@@ -92,7 +146,11 @@ class TraceView: UIView {
             CGPoint(x: 205, y: 245),
             CGPoint(x: 205, y: 650)
         ]
+        
         expectedPathView.alpha = 0.5
+        
+        addSubview(drawingView)
+        bringSubviewToFront(drawingView)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -116,28 +174,34 @@ class TraceView: UIView {
     }
     
     private func isPointWithinBounds(_ pt: CGPoint) -> Bool {
-        let threshold: CGFloat = 75
         return expectedPath.contains { ept in
-            let dx = pt.x - ept.x
-            let dy = pt.y - ept.y
-            let distance = sqrt(dx * dx + dy * dy)
-            return distance < threshold
+            return getDistance(start: pt, end: ept) < maxDistance
         }
+    }
+    
+    private func getDistance(start: CGPoint, end: CGPoint) -> CGFloat {
+        let dx = start.x - end.x
+        let dy = start.y - end.y
+        let distance = sqrt(dx * dx + dy * dy)
+        return distance
     }
 
     override func draw(_ rect: CGRect) {
+        UIGraphicsBeginImageContext(drawingView.bounds.size)
         guard let context = UIGraphicsGetCurrentContext() else {
             print("ERROR: no context available")
             return
         }
         
-        context.setFillColor(UIColor.white.cgColor)
-        context.fill(bounds)
+//        context.setFillColor(UIColor.white.cgColor)
+//        context.fill(bounds)
         
         lines.forEach {
             drawLine(context: context, line: $0)
         }
         
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        drawingView.image = image
         UIGraphicsEndImageContext()
     }
     
