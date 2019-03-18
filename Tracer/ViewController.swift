@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         traceView = TraceView(frame: view.frame)
+        traceView.backgroundView = UIImageView(image: UIImage(named: "T"))
         view.addSubview(traceView)
     }
 }

@@ -18,12 +18,26 @@ class TraceView: UIView {
     private var lines: Array<Line>
     private var _expectedPath: Array<CGPoint>
     private var expectedPathView: UIImageView
+    private var _backgroundView: UIImageView?
     
     var expectedPath: Array<CGPoint> {
         get { return _expectedPath }
         set {
             _expectedPath = newValue
             drawExpectedPath(points: newValue)
+        }
+    }
+    
+    var backgroundView: UIImageView? {
+        get { return _backgroundView }
+        set {
+            _backgroundView?.removeFromSuperview()
+            _backgroundView = newValue
+            guard let view = newValue else { return }
+            view.contentMode = .scaleAspectFit
+            view.frame = bounds
+            addSubview(view)
+            sendSubviewToBack(view)
         }
     }
     
@@ -73,10 +87,10 @@ class TraceView: UIView {
     private func commonInit() {
         addSubview(expectedPathView)
         expectedPath = [
-            CGPoint(x: 100, y: 100),
-            CGPoint(x: 200, y: 200),
-            CGPoint(x: 100, y: 300),
-            CGPoint(x: 200, y: 400)
+            CGPoint(x: 83, y: 245),
+            CGPoint(x: 350, y: 245),
+            CGPoint(x: 205, y: 245),
+            CGPoint(x: 205, y: 650)
         ]
         expectedPathView.alpha = 0.5
     }
@@ -86,7 +100,9 @@ class TraceView: UIView {
             let start = $0.previousLocation(in: self)
             let end = $0.location(in: self)
             let color = colorForPoints(start, end)
-            self.lines.append(Line(start: start, end: end, color: color))
+            let line = Line(start: start, end: end, color: color)
+            print("line: \(line)")
+            self.lines.append(line)
         }
         setNeedsDisplay()
     }
