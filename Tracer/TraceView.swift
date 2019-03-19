@@ -54,16 +54,24 @@ class TraceView: UIView {
                 return
             }
             
-            let imageSize = CGSize(width: maxDistance, height: maxDistance)
-            let offset = maxDistance / 2.0
             
-            _expectedPaths.compactMap{$0.points}.joined().forEach { pt in
+            
+            let frames = _expectedPaths.compactMap{$0.points}.joined().map {
+                TraceView.getFrameFrom(maxDistance: maxDistance, andPt: $0)
+            }
+            
+            frames.forEach {
                 let imageView = UIImageView(image: image)
-                addSubview(imageView)
-                let offsetPt = CGPoint(x: pt.x - offset, y: pt.y - offset)
-                imageView.frame = CGRect(origin: offsetPt, size: imageSize)
+                imageView.frame = $0
             }
         }
+    }
+    
+    public static func getFrameFrom(maxDistance: CGFloat, andPt pt: CGPoint) -> CGRect {
+        let imageSize = CGSize(width: maxDistance, height: maxDistance)
+        let offset = maxDistance / 2.0
+        let offsetPt = CGPoint(x: pt.x - offset, y: pt.y - offset)
+        return CGRect(origin: offsetPt, size: imageSize)
     }
     
     private func withAddedWayPoints(maxDistance: CGFloat, path: Array<CGPoint>) -> Array<CGPoint> {
