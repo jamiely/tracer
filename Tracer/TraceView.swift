@@ -191,14 +191,6 @@ class TraceView: UIView {
     
     private func commonInit() {
         addSubview(expectedPathView)
-        expectedPaths = [
-            Path(points: [
-                CGPoint(x: 70, y: 245),
-                CGPoint(x: 350, y: 245)]),
-            Path(points: [
-                CGPoint(x: 205, y: 245),
-                CGPoint(x: 205, y: 650)])
-        ]
         
         expectedPathView.alpha = 0.5
         
@@ -263,9 +255,6 @@ class TraceView: UIView {
             print("ERROR: no context available")
             return
         }
-        
-//        context.setFillColor(UIColor.white.cgColor)
-//        context.fill(bounds)
         
         lines.forEach {
             drawLine(context: context, line: $0, overrideColor: overrideColor)
