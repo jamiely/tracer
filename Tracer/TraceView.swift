@@ -61,6 +61,7 @@ class TraceView: UIView {
             frames.forEach {
                 let imageView = UIImageView(image: image)
                 imageView.frame = $0
+                addSubview(imageView)
             }
         }
     }
