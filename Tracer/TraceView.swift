@@ -54,8 +54,6 @@ class TraceView: UIView {
                 return
             }
             
-            
-            
             let frames = _expectedPaths.compactMap{$0.points}.joined().map {
                 TraceView.getFrameFrom(maxDistance: maxDistance, andPt: $0)
             }
@@ -84,7 +82,7 @@ class TraceView: UIView {
         newPath.append(last)
         
         path[1..<path.count].forEach { pt in
-            let waypoints = calculateWaypoints(maxDistance: maxDistance, start: last, end: pt)
+            let waypoints = TraceView.calculateWaypoints(maxDistance: maxDistance, start: last, end: pt)
             newPath.append(contentsOf: waypoints)
             newPath.append(pt)
             last = pt
@@ -96,9 +94,9 @@ class TraceView: UIView {
     /// Returns the waypoints that should be inserted
     /// between two points so that the resulting
     /// points are less than the given distance apart.
-    private func calculateWaypoints(maxDistance: CGFloat, start: CGPoint, end: CGPoint) -> Array<CGPoint> {
+    public static func calculateWaypoints(maxDistance: CGFloat, start: CGPoint, end: CGPoint) -> Array<CGPoint> {
         
-        let distance = getDistance(start: start, end: end)
+        let distance = TraceView.getDistance(start: start, end: end)
         
         if distance < maxDistance {
             return Array<CGPoint>()
@@ -106,19 +104,19 @@ class TraceView: UIView {
         
         // the points are too far apart, so we need to add
         // a waypoint
-        let midpoint = getMidpoint(start: start, end: end)
+        let midpoint = TraceView.getMidpoint(start: start, end: end)
         // then we want to check recursively get the waypoints
         // between the midpoint and the start and end
         
         return
-            calculateWaypoints(maxDistance: maxDistance,
+            TraceView.calculateWaypoints(maxDistance: maxDistance,
                          start: start, end: midpoint) +
             [midpoint] +
-            calculateWaypoints(maxDistance: maxDistance,
+            TraceView.calculateWaypoints(maxDistance: maxDistance,
                         start: midpoint, end: end)
     }
     
-    private func getMidpoint(start: CGPoint, end: CGPoint) -> CGPoint {
+    private static func getMidpoint(start: CGPoint, end: CGPoint) -> CGPoint {
         let x = (start.x + end.x) / 2.0
         let y = (start.y + end.y) / 2.0
         return CGPoint(x: x, y: y)
@@ -225,7 +223,7 @@ class TraceView: UIView {
         var toRemove: Set<Int> = []
         pendingPoints.enumerated().forEach { entry in
             let (offset, element) = entry
-            let distance = getDistance(start: element, end: pt)
+            let distance = TraceView.getDistance(start: element, end: pt)
             if distance > maxDistance { return }
             
             toRemove.insert(offset)
@@ -245,12 +243,12 @@ class TraceView: UIView {
     private func isPointWithinBounds(_ pt: CGPoint) -> Bool {
         return expectedPaths.contains { path in
             return path.points.contains { ept in
-                return getDistance(start: pt, end: ept) < maxDistance
+                return TraceView.getDistance(start: pt, end: ept) < maxDistance
             }
         }
     }
     
-    private func getDistance(start: CGPoint, end: CGPoint) -> CGFloat {
+    private static func getDistance(start: CGPoint, end: CGPoint) -> CGFloat {
         let dx = start.x - end.x
         let dy = start.y - end.y
         let distance = sqrt(dx * dx + dy * dy)
