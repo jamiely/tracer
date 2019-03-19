@@ -21,23 +21,48 @@ struct Path {
 class TraceView: UIView {
     private var lines: Array<Line> = []
     private var _expectedPaths: Array<Path> = []
+    private var _expectedPathsWithWaypoints: Array<Path> = []
     private var expectedPathView: UIImageView
     private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
     private let maxDistance: CGFloat = 20
     private var pendingPoints: Array<CGPoint> = []
     private var isComplete: Bool { return pendingPoints.isEmpty }
-    private var keyPointImage: UIImage?
+    private var _keyPointImage: UIImage?
+    private var imageViews: Array<UIImageView> = []
     
     var expectedPaths: Array<Path> {
-        get { return _expectedPaths }
+        get { return _expectedPathsWithWaypoints }
         set {
-            _expectedPaths = newValue.map {
+            _expectedPaths = newValue
+            _expectedPathsWithWaypoints = newValue.map {
                 let points = withAddedWayPoints(maxDistance: maxDistance, path: $0.points)
                 return Path(points: points)
             }
-            pendingPoints = Array(_expectedPaths.compactMap{$0.points}.joined())
+            pendingPoints = Array(_expectedPathsWithWaypoints.compactMap{$0.points}.joined())
             drawExpectedPaths(paths: newValue)
+        }
+    }
+    
+    var keyPointImage: UIImage? {
+        get { return _keyPointImage }
+        set {
+            _keyPointImage = newValue
+            guard let image = newValue else {
+                imageViews.forEach{$0.removeFromSuperview()}
+                imageViews = []
+                return
+            }
+            
+            let imageSize = CGSize(width: maxDistance, height: maxDistance)
+            let offset = maxDistance / 2.0
+            
+            _expectedPaths.compactMap{$0.points}.joined().forEach { pt in
+                let imageView = UIImageView(image: image)
+                addSubview(imageView)
+                let offsetPt = CGPoint(x: pt.x - offset, y: pt.y - offset)
+                imageView.frame = CGRect(origin: offsetPt, size: imageSize)
+            }
         }
     }
     
@@ -98,7 +123,9 @@ class TraceView: UIView {
             _backgroundView = newValue
             guard let view = newValue else { return }
             view.contentMode = .scaleAspectFit
-            view.frame = bounds
+            // we hard-code this for now so it looks the same on phones
+            // other than the iPhone XR
+            view.frame = CGRect(x: 0, y: 0, width: 414, height: 896)
             addSubview(view)
             sendSubviewToBack(view)
         }

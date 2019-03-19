@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         traceView = TraceView(frame: view.frame)
         let background = UIImageView(image: UIImage(named: "T"))
         traceView.backgroundView = background
+        traceView.keyPointImage = UIImage(named: "Star")
         view.addSubview(traceView)
     }
 }
