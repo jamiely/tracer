@@ -24,9 +24,10 @@ class TraceView: UIView {
     private var expectedPathView: UIImageView
     private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
-    private let maxDistance: CGFloat = 10
+    private let maxDistance: CGFloat = 20
     private var pendingPoints: Array<CGPoint> = []
     private var isComplete: Bool { return pendingPoints.isEmpty }
+    private var keyPointImage: UIImage?
     
     var expectedPaths: Array<Path> {
         get { return _expectedPaths }
@@ -109,8 +110,6 @@ class TraceView: UIView {
                 print("Could not retrieve context")
                 return
         }
-        context.setFillColor(UIColor.white.cgColor)
-        context.fill(expectedPathView.bounds)
         
         paths.forEach {
             drawExpectedPath(context: context, path: $0)
@@ -129,7 +128,9 @@ class TraceView: UIView {
             return
         }
         
-        context.setStrokeColor(UIColor.blue.cgColor)
+        context.setLineWidth(maxDistance * 2)
+        context.setLineCap(.round)
+        context.setStrokeColor(UIColor.gray.cgColor)
         points[1..<points.count].forEach { pt in
             context.move(to: last)
             context.addLine(to: pt)
@@ -158,7 +159,7 @@ class TraceView: UIView {
         addSubview(expectedPathView)
         expectedPaths = [
             Path(points: [
-                CGPoint(x: 83, y: 245),
+                CGPoint(x: 70, y: 245),
                 CGPoint(x: 350, y: 245)]),
             Path(points: [
                 CGPoint(x: 205, y: 245),
