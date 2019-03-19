@@ -14,22 +14,29 @@ struct Line {
     let outOfBounds: Bool
 }
 
+struct Path {
+    let points: Array<CGPoint>
+}
+
 class TraceView: UIView {
-    private var lines: Array<Line>
-    private var _expectedPath: Array<CGPoint>
+    private var lines: Array<Line> = []
+    private var _expectedPaths: Array<Path> = []
     private var expectedPathView: UIImageView
     private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
     private let maxDistance: CGFloat = 10
-    private var pendingPoints: Array<CGPoint>
+    private var pendingPoints: Array<CGPoint> = []
     private var isComplete: Bool { return pendingPoints.isEmpty }
     
-    var expectedPath: Array<CGPoint> {
-        get { return _expectedPath }
+    var expectedPaths: Array<Path> {
+        get { return _expectedPaths }
         set {
-            _expectedPath = withAddedWayPoints(maxDistance: maxDistance, path: newValue)
-            pendingPoints = Array<CGPoint>(_expectedPath)
-            drawExpectedPath(points: newValue)
+            _expectedPaths = newValue.map {
+                let points = withAddedWayPoints(maxDistance: maxDistance, path: $0.points)
+                return Path(points: points)
+            }
+            pendingPoints = Array(_expectedPaths.compactMap{$0.points}.joined())
+            drawExpectedPaths(paths: newValue)
         }
     }
     
@@ -96,17 +103,31 @@ class TraceView: UIView {
         }
     }
     
-    private func drawExpectedPath(points: Array<CGPoint>) {
+    private func drawExpectedPaths(paths: Array<Path>) {
         UIGraphicsBeginImageContext(expectedPathView.bounds.size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+                print("Could not retrieve context")
+                return
+        }
+        context.setFillColor(UIColor.white.cgColor)
+        context.fill(expectedPathView.bounds)
         
-        guard var last = points.first,
-            let context = UIGraphicsGetCurrentContext() else {
+        paths.forEach {
+            drawExpectedPath(context: context, path: $0)
+        }
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        expectedPathView.image = image
+    }
+    
+    private func drawExpectedPath(context: CGContext, path: Path) {
+        let points = path.points
+        
+        guard var last = points.first else {
             print("There should be at least one point")
             return
         }
-        
-        context.setFillColor(UIColor.white.cgColor)
-        context.fill(expectedPathView.bounds)
         
         context.setStrokeColor(UIColor.blue.cgColor)
         points[1..<points.count].forEach { pt in
@@ -115,29 +136,19 @@ class TraceView: UIView {
             context.strokePath()
             last = pt
         }
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        expectedPathView.image = image
     }
     
     required init?(coder aDecoder: NSCoder) {
-        lines = []
-        _expectedPath = []
         expectedPathView = UIImageView(coder: aDecoder)!
         drawingView = UIImageView(coder: aDecoder)!
-        pendingPoints = []
         
         super.init(coder: aDecoder)
         commonInit()
     }
     
     override init(frame: CGRect) {
-        lines = []
-        _expectedPath = []
         expectedPathView = UIImageView(frame: frame)
         drawingView = UIImageView(frame: frame)
-        pendingPoints = []
         
         super.init(frame: frame)
         commonInit()
@@ -145,11 +156,13 @@ class TraceView: UIView {
     
     private func commonInit() {
         addSubview(expectedPathView)
-        expectedPath = [
-            CGPoint(x: 83, y: 245),
-            CGPoint(x: 350, y: 245),
-            CGPoint(x: 205, y: 245),
-            CGPoint(x: 205, y: 650)
+        expectedPaths = [
+            Path(points: [
+                CGPoint(x: 83, y: 245),
+                CGPoint(x: 350, y: 245)]),
+            Path(points: [
+                CGPoint(x: 205, y: 245),
+                CGPoint(x: 205, y: 650)])
         ]
         
         expectedPathView.alpha = 0.5
@@ -194,8 +207,10 @@ class TraceView: UIView {
     }
     
     private func isPointWithinBounds(_ pt: CGPoint) -> Bool {
-        return expectedPath.contains { ept in
-            return getDistance(start: pt, end: ept) < maxDistance
+        return expectedPaths.contains { path in
+            return path.points.contains { ept in
+                return getDistance(start: pt, end: ept) < maxDistance
+            }
         }
     }
     
