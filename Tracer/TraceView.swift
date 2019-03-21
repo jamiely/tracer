@@ -241,7 +241,7 @@ class TraceView: UIView {
         }
     }
     
-    private static func getDistance(start: CGPoint, end: CGPoint) -> CGFloat {
+    public static func getDistance(start: CGPoint, end: CGPoint) -> CGFloat {
         let dx = start.x - end.x
         let dy = start.y - end.y
         let distance = sqrt(dx * dx + dy * dy)
