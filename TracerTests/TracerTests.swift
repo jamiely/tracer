@@ -22,6 +22,7 @@ extension CGFloat: Arbitrary {
     }
 }
 
+let floatsGTE1 = CGFloat.arbitrary.suchThat { $0 >= 1 }
 let positiveFloats = CGFloat.arbitrary.suchThat { $0 >= 0 }
 let positivePoints = Gen<(CGFloat, CGFloat)>.zip(
     positiveFloats, positiveFloats).map(CGPoint.init)
@@ -31,7 +32,7 @@ extension LineAndDistance : Arbitrary {
     public static var arbitrary : Gen<LineAndDistance> {
         return Gen<(CGFloat, CGPoint, CGPoint)>.zip(
             // max distance should be greater than 1
-            positiveFloats.suchThat{$0 >= 1},
+            floatsGTE1,
             positivePoints,
             positivePoints).map(LineAndDistance.init)
     }
@@ -53,31 +54,21 @@ class TracerTests: XCTestCase {
     }
     
     func testWaypointDistanceProperty() {
-        var counter = 0
-        property("waypoints are created so that points are not more than max distance apart") <- forAll { (args: LineAndDistance) in
+        property("waypoints are created so that points are not more than max distance apart")
+            <- forAll { (args: LineAndDistance) in
             
             let maxDistance = args.maxDistance
             let start = args.start
             let end = args.end
             
-            let points =
-                [ start ] +
-                TraceView.calculateWaypoints(maxDistance: maxDistance, start: start, end: end) +
-                [ end ]
+            let waypoints = TraceView.calculateWaypoints(maxDistance: maxDistance, start: start, end: end)
             
-            guard var last = points.first else { return false }
-            let result = points[1..<points.count].allSatisfy {
-                let distance = TraceView.getDistance(start: last, end: $0)
-                // we add 1 for some floating point rounding error
-                last = $0
+            var previous = start
+            return (waypoints + [end]).allSatisfy { current in
+                let distance = TraceView.getDistance(start: previous, end: current)
+                previous = current
                 return distance <= maxDistance
             }
-            
-            counter = counter + 1
-            
-            print("Counter \(counter)")
-            
-            return result
         }
     }
 }
