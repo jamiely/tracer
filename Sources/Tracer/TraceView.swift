@@ -4,11 +4,15 @@ struct Line {
     let outOfBounds: Bool
 }
 
-struct Path {
+public struct Path {
     let points: Array<CGPoint>
+    
+    public init(points: Array<CGPoint>) {
+        self.points = points
+    }
 }
 
-class TraceView: UIView {
+public class TraceView: UIView {
     private var lines: Array<Line> = []
     private var _expectedPaths: Array<Path> = []
     private var _expectedPathsWithWaypoints: Array<Path> = []
@@ -21,7 +25,7 @@ class TraceView: UIView {
     private var _keyPointImage: UIImage?
     private var imageViews: Array<UIImageView> = []
     
-    var expectedPaths: Array<Path> {
+    public var expectedPaths: Array<Path> {
         get { return _expectedPathsWithWaypoints }
         set {
             _expectedPaths = newValue
@@ -34,7 +38,7 @@ class TraceView: UIView {
         }
     }
     
-    var keyPointImage: UIImage? {
+    public var keyPointImage: UIImage? {
         get { return _keyPointImage }
         set {
             _keyPointImage = newValue
@@ -113,7 +117,7 @@ class TraceView: UIView {
         return CGPoint(x: x, y: y)
     }
     
-    var backgroundView: UIImageView? {
+    public var backgroundView: UIImageView? {
         get { return _backgroundView }
         set {
             _backgroundView?.removeFromSuperview()
@@ -171,7 +175,7 @@ class TraceView: UIView {
         commonInit()
     }
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         expectedPathView = UIImageView(frame: frame)
         drawingView = UIImageView(frame: frame)
         
@@ -188,7 +192,7 @@ class TraceView: UIView {
         bringSubviewToFront(drawingView)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         touches.forEach {
             let start = $0.previousLocation(in: self)
             let end = $0.location(in: self)
@@ -238,7 +242,7 @@ class TraceView: UIView {
         return distance
     }
 
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         let overrideColor = isComplete ? UIColor.green.cgColor : nil
         UIGraphicsBeginImageContext(drawingView.bounds.size)
         guard let context = UIGraphicsGetCurrentContext() else {

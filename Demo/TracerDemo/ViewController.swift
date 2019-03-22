@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Tracer
 
 class ViewController: UIViewController {
     private var traceView: TraceView!
