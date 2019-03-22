@@ -29,14 +29,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0847892F2239D45500739960 /* Tracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0847892F2239D45500739960 /* TracerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TracerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		084789322239D45600739960 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		084789342239D45600739960 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		084789372239D45600739960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		084789392239D45700739960 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0847893C2239D45700739960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0847893E2239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0847894E2239D45700739960 /* TracerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0847894E2239D45700739960 /* TracerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		084789522239D45700739960 /* TracerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerUITests.swift; sourceTree = "<group>"; };
 		084789542239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		084789602239D4EB00739960 /* TraceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceView.swift; sourceTree = "<group>"; };
@@ -74,8 +74,8 @@
 		084789262239D45500739960 = {
 			isa = PBXGroup;
 			children = (
-				084789312239D45500739960 /* Tracer */,
-				084789512239D45700739960 /* TracerUITests */,
+				084789312239D45500739960 /* TracerDemo */,
+				084789512239D45700739960 /* TracerDemoUITests */,
 				084789302239D45500739960 /* Products */,
 				84BC45F51D6A0F874285073A /* Pods */,
 				4868755B9B9FB4CA9618CDBA /* Frameworks */,
@@ -85,13 +85,13 @@
 		084789302239D45500739960 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0847892F2239D45500739960 /* Tracer.app */,
-				0847894E2239D45700739960 /* TracerUITests.xctest */,
+				0847892F2239D45500739960 /* TracerDemo.app */,
+				0847894E2239D45700739960 /* TracerDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		084789312239D45500739960 /* Tracer */ = {
+		084789312239D45500739960 /* TracerDemo */ = {
 			isa = PBXGroup;
 			children = (
 				084789322239D45600739960 /* AppDelegate.swift */,
@@ -102,16 +102,16 @@
 				0847893E2239D45700739960 /* Info.plist */,
 				084789602239D4EB00739960 /* TraceView.swift */,
 			);
-			path = Tracer;
+			path = TracerDemo;
 			sourceTree = "<group>";
 		};
-		084789512239D45700739960 /* TracerUITests */ = {
+		084789512239D45700739960 /* TracerDemoUITests */ = {
 			isa = PBXGroup;
 			children = (
 				084789522239D45700739960 /* TracerUITests.swift */,
 				084789542239D45700739960 /* Info.plist */,
 			);
-			path = TracerUITests;
+			path = TracerDemoUITests;
 			sourceTree = "<group>";
 		};
 		4868755B9B9FB4CA9618CDBA /* Frameworks */ = {
@@ -140,9 +140,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0847892E2239D45500739960 /* Tracer */ = {
+		0847892E2239D45500739960 /* TracerDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 084789572239D45700739960 /* Build configuration list for PBXNativeTarget "Tracer" */;
+			buildConfigurationList = 084789572239D45700739960 /* Build configuration list for PBXNativeTarget "TracerDemo" */;
 			buildPhases = (
 				93561403B57EE7C70BB79C4E /* [CP] Check Pods Manifest.lock */,
 				0847892B2239D45500739960 /* Sources */,
@@ -153,14 +153,14 @@
 			);
 			dependencies = (
 			);
-			name = Tracer;
+			name = TracerDemo;
 			productName = Tracer;
-			productReference = 0847892F2239D45500739960 /* Tracer.app */;
+			productReference = 0847892F2239D45500739960 /* TracerDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0847894D2239D45700739960 /* TracerUITests */ = {
+		0847894D2239D45700739960 /* TracerDemoUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0847895D2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerUITests" */;
+			buildConfigurationList = 0847895D2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerDemoUITests" */;
 			buildPhases = (
 				D1A8069D9E82196CBC16E544 /* [CP] Check Pods Manifest.lock */,
 				0847894A2239D45700739960 /* Sources */,
@@ -172,9 +172,9 @@
 			dependencies = (
 				084789502239D45700739960 /* PBXTargetDependency */,
 			);
-			name = TracerUITests;
+			name = TracerDemoUITests;
 			productName = TracerUITests;
-			productReference = 0847894E2239D45700739960 /* TracerUITests.xctest */;
+			productReference = 0847894E2239D45700739960 /* TracerDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -196,7 +196,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0847892A2239D45500739960 /* Build configuration list for PBXProject "Tracer" */;
+			buildConfigurationList = 0847892A2239D45500739960 /* Build configuration list for PBXProject "TracerDemo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -209,8 +209,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0847892E2239D45500739960 /* Tracer */,
-				0847894D2239D45700739960 /* TracerUITests */,
+				0847892E2239D45500739960 /* TracerDemo */,
+				0847894D2239D45700739960 /* TracerDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +306,7 @@
 /* Begin PBXTargetDependency section */
 		084789502239D45700739960 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0847892E2239D45500739960 /* Tracer */;
+			target = 0847892E2239D45500739960 /* TracerDemo */;
 			targetProxy = 0847894F2239D45700739960 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -526,7 +526,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0847892A2239D45500739960 /* Build configuration list for PBXProject "Tracer" */ = {
+		0847892A2239D45500739960 /* Build configuration list for PBXProject "TracerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				084789552239D45700739960 /* Debug */,
@@ -535,7 +535,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		084789572239D45700739960 /* Build configuration list for PBXNativeTarget "Tracer" */ = {
+		084789572239D45700739960 /* Build configuration list for PBXNativeTarget "TracerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				084789582239D45700739960 /* Debug */,
@@ -544,7 +544,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0847895D2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerUITests" */ = {
+		0847895D2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerDemoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0847895E2239D45700739960 /* Debug */,
