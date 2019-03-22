@@ -1,18 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '11.0'
 
-target 'Tracer' do
+target 'TracerDemo' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Tracer
+  # Pods for TracerDemo
 
-  target 'TracerTests' do
-    inherit! :search_paths
-    pod 'SwiftCheck'
-  end
-
-  target 'TracerUITests' do
+  target 'TracerDemoUITests' do
     inherit! :search_paths
     # Pods for testing
   end
