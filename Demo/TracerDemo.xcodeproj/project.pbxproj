@@ -13,7 +13,6 @@
 		0847893A2239D45700739960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 084789392239D45700739960 /* Assets.xcassets */; };
 		0847893D2239D45700739960 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0847893B2239D45700739960 /* LaunchScreen.storyboard */; };
 		084789532239D45700739960 /* TracerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084789522239D45700739960 /* TracerUITests.swift */; };
-		084789612239D4EB00739960 /* TraceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084789602239D4EB00739960 /* TraceView.swift */; };
 		9E2BDC5369E695D7DB89C3F7 /* Pods_Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D656179C49F7401D158974 /* Pods_Tracer.framework */; };
 		AE5B72F7D47644FA0BC3BCDF /* Pods_TracerDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4131061A1DC3B9EF23C48733 /* Pods_TracerDemoUITests.framework */; };
 		CDA71917BE73A337E747293A /* Pods_TracerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA867B5B82AE462873E30CE /* Pods_TracerUITests.framework */; };
@@ -41,7 +40,6 @@
 		0847894E2239D45700739960 /* TracerDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		084789522239D45700739960 /* TracerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerUITests.swift; sourceTree = "<group>"; };
 		084789542239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		084789602239D4EB00739960 /* TraceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraceView.swift; sourceTree = "<group>"; };
 		084D718E7C7F41B52DE72155 /* Pods-Tracer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tracer/Pods-Tracer.debug.xcconfig"; sourceTree = "<group>"; };
 		156DEB7F8DC102B31C665C09 /* Pods-TracerDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TracerDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TracerDemoUITests/Pods-TracerDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1A3CD0BF059465E6B849B5A0 /* Pods-TracerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TracerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TracerDemo/Pods-TracerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				084789392239D45700739960 /* Assets.xcassets */,
 				0847893B2239D45700739960 /* LaunchScreen.storyboard */,
 				0847893E2239D45700739960 /* Info.plist */,
-				084789602239D4EB00739960 /* TraceView.swift */,
 			);
 			path = TracerDemo;
 			sourceTree = "<group>";
@@ -164,6 +161,7 @@
 				0847892B2239D45500739960 /* Sources */,
 				0847892C2239D45500739960 /* Frameworks */,
 				0847892D2239D45500739960 /* Resources */,
+				75224651419438D99FFC5937 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -252,6 +250,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		75224651419438D99FFC5937 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TracerDemo/Pods-TracerDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Tracer/Tracer.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Tracer.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TracerDemo/Pods-TracerDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		93561403B57EE7C70BB79C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,7 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				084789612239D4EB00739960 /* TraceView.swift in Sources */,
 				084789352239D45600739960 /* ViewController.swift in Sources */,
 				084789332239D45600739960 /* AppDelegate.swift in Sources */,
 			);

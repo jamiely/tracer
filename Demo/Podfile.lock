@@ -1,3 +1,16 @@
-PODFILE CHECKSUM: 3f89db625d6cd3f8ec4a247ff5229246757a4bcf
+PODS:
+  - Tracer (0.1.0)
+
+DEPENDENCIES:
+  - Tracer (from `../`)
+
+EXTERNAL SOURCES:
+  Tracer:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Tracer: 5f71896e1d0cf620c2a3f58eaaab98b6c42997b8
+
+PODFILE CHECKSUM: dd0e0e0a09b0aeab661eba3f0b5c854ee253962b
 
 COCOAPODS: 1.5.3
