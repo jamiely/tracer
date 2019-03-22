@@ -12,22 +12,13 @@
 		084789382239D45600739960 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 084789362239D45600739960 /* Main.storyboard */; };
 		0847893A2239D45700739960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 084789392239D45700739960 /* Assets.xcassets */; };
 		0847893D2239D45700739960 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0847893B2239D45700739960 /* LaunchScreen.storyboard */; };
-		084789482239D45700739960 /* TracerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084789472239D45700739960 /* TracerTests.swift */; };
 		084789532239D45700739960 /* TracerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084789522239D45700739960 /* TracerUITests.swift */; };
 		084789612239D4EB00739960 /* TraceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084789602239D4EB00739960 /* TraceView.swift */; };
-		8D1BB669F042BBFF782D999E /* Pods_TracerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E652D7070A7B92DF20A8481A /* Pods_TracerTests.framework */; };
 		9E2BDC5369E695D7DB89C3F7 /* Pods_Tracer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5D656179C49F7401D158974 /* Pods_Tracer.framework */; };
 		CDA71917BE73A337E747293A /* Pods_TracerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA867B5B82AE462873E30CE /* Pods_TracerUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		084789442239D45700739960 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 084789272239D45500739960 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0847892E2239D45500739960;
-			remoteInfo = Tracer;
-		};
 		0847894F2239D45700739960 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 084789272239D45500739960 /* Project object */;
@@ -45,9 +36,6 @@
 		084789392239D45700739960 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0847893C2239D45700739960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0847893E2239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		084789432239D45700739960 /* TracerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		084789472239D45700739960 /* TracerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerTests.swift; sourceTree = "<group>"; };
-		084789492239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0847894E2239D45700739960 /* TracerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TracerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		084789522239D45700739960 /* TracerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracerUITests.swift; sourceTree = "<group>"; };
 		084789542239D45700739960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,14 +60,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		084789402239D45700739960 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8D1BB669F042BBFF782D999E /* Pods_TracerTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0847894B2239D45700739960 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -95,7 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				084789312239D45500739960 /* Tracer */,
-				084789462239D45700739960 /* TracerTests */,
 				084789512239D45700739960 /* TracerUITests */,
 				084789302239D45500739960 /* Products */,
 				84BC45F51D6A0F874285073A /* Pods */,
@@ -107,7 +86,6 @@
 			isa = PBXGroup;
 			children = (
 				0847892F2239D45500739960 /* Tracer.app */,
-				084789432239D45700739960 /* TracerTests.xctest */,
 				0847894E2239D45700739960 /* TracerUITests.xctest */,
 			);
 			name = Products;
@@ -125,15 +103,6 @@
 				084789602239D4EB00739960 /* TraceView.swift */,
 			);
 			path = Tracer;
-			sourceTree = "<group>";
-		};
-		084789462239D45700739960 /* TracerTests */ = {
-			isa = PBXGroup;
-			children = (
-				084789472239D45700739960 /* TracerTests.swift */,
-				084789492239D45700739960 /* Info.plist */,
-			);
-			path = TracerTests;
 			sourceTree = "<group>";
 		};
 		084789512239D45700739960 /* TracerUITests */ = {
@@ -189,26 +158,6 @@
 			productReference = 0847892F2239D45500739960 /* Tracer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		084789422239D45700739960 /* TracerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0847895A2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerTests" */;
-			buildPhases = (
-				60458314B97DDA9AFCDF4B37 /* [CP] Check Pods Manifest.lock */,
-				0847893F2239D45700739960 /* Sources */,
-				084789402239D45700739960 /* Frameworks */,
-				084789412239D45700739960 /* Resources */,
-				DBB7F38A1901A936EA027B8E /* [CP] Embed Pods Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				084789452239D45700739960 /* PBXTargetDependency */,
-			);
-			name = TracerTests;
-			productName = TracerTests;
-			productReference = 084789432239D45700739960 /* TracerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		0847894D2239D45700739960 /* TracerUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0847895D2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerUITests" */;
@@ -241,10 +190,6 @@
 					0847892E2239D45500739960 = {
 						CreatedOnToolsVersion = 10.1;
 					};
-					084789422239D45700739960 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 0847892E2239D45500739960;
-					};
 					0847894D2239D45700739960 = {
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = 0847892E2239D45500739960;
@@ -265,7 +210,6 @@
 			projectRoot = "";
 			targets = (
 				0847892E2239D45500739960 /* Tracer */,
-				084789422239D45700739960 /* TracerTests */,
 				0847894D2239D45700739960 /* TracerUITests */,
 			);
 		};
@@ -282,13 +226,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		084789412239D45700739960 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0847894C2239D45700739960 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,28 +236,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		60458314B97DDA9AFCDF4B37 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TracerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		93561403B57EE7C70BB79C4E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -365,28 +280,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DBB7F38A1901A936EA027B8E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TracerTests/Pods-TracerTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftCheck/SwiftCheck.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftCheck.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TracerTests/Pods-TracerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -397,14 +290,6 @@
 				084789612239D4EB00739960 /* TraceView.swift in Sources */,
 				084789352239D45600739960 /* ViewController.swift in Sources */,
 				084789332239D45600739960 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0847893F2239D45700739960 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				084789482239D45700739960 /* TracerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,11 +304,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		084789452239D45700739960 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 0847892E2239D45500739960 /* Tracer */;
-			targetProxy = 084789442239D45700739960 /* PBXContainerItemProxy */;
-		};
 		084789502239D45700739960 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0847892E2239D45500739960 /* Tracer */;
@@ -603,48 +483,6 @@
 			};
 			name = Release;
 		};
-		0847895B2239D45700739960 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52595B9290A7ED5DACA2D46A /* Pods-TracerTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = TracerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ly.jamie.TracerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tracer.app/Tracer";
-			};
-			name = Debug;
-		};
-		0847895C2239D45700739960 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4BF7F2976B82053A7961D0F9 /* Pods-TracerTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = TracerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = ly.jamie.TracerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tracer.app/Tracer";
-			};
-			name = Release;
-		};
 		0847895E2239D45700739960 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 68F64A00A0F836BC01B38065 /* Pods-TracerUITests.debug.xcconfig */;
@@ -702,15 +540,6 @@
 			buildConfigurations = (
 				084789582239D45700739960 /* Debug */,
 				084789592239D45700739960 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		0847895A2239D45700739960 /* Build configuration list for PBXNativeTarget "TracerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0847895B2239D45700739960 /* Debug */,
-				0847895C2239D45700739960 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
