@@ -1,13 +1,3 @@
-//
-//  TraceView.swift
-//  Tracer
-//
-//  Created by Ly, Jamie on 3/13/19.
-//  Copyright © 2019 Ly, Jamie. All rights reserved.
-//
-
-import UIKit
-
 struct Line {
     let start: CGPoint
     let end: CGPoint

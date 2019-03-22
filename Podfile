@@ -12,9 +12,4 @@ target 'Tracer' do
     pod 'SwiftCheck'
   end
 
-  target 'TracerUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
