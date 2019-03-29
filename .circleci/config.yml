@@ -4,8 +4,6 @@ jobs:
   build-and-test:
     macos:
       xcode: "10.1.0"
-    environment:
-      FL_OUTPUT_DIR: output
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
@@ -34,8 +32,11 @@ jobs:
           name: Install CocoaPods
           command: bundle exec fastlane run cocoapods
       - run:
+          name: Create output directory
+          command: mkdir -p output/scan
+      - run:
           name: Build and run tests
-          command: fastlane scan
+          command: fastlane scan --output_directory output/scan
       - store_test_results:
           path: output/scan
       - store_artifacts:
