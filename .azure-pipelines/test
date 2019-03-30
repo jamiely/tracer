@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -ex
+
+run() {
+  local mydir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+  cd $mydir/..
+
+  bundle update --bundler
+  bundle install
+  export DEVELOPER_DIR="/Applications/Xcode_10.1.app"
+  bundle exec fastlane scan --output_directory output/scan
+}
+
+run $@

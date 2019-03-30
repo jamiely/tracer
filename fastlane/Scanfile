@@ -1,0 +1,8 @@
+#
+#
+
+workspace("Tracer.xcworkspace")
+scheme("Tracer")
+
+# vim: set ft=ruby:
+

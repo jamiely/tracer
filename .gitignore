@@ -106,3 +106,4 @@ iOSInjectionProject/
 *.xcworkspace
 test_output
 *.swp
+vendor

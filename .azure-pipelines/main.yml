@@ -1,0 +1,9 @@
+pool:
+  vmImage: 'macOS-10.13'
+steps:
+  - task: CocoaPods@0
+    displayName: 'pod install using the CocoaPods task with defaults'
+  - task: ShellScript@2
+    inputs:
+      scriptPath: .azure-pipelines/test
+
