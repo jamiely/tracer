@@ -1,3 +1,5 @@
+import UIKit
+
 struct Line {
     let start: CGPoint
     let end: CGPoint
@@ -5,50 +7,44 @@ struct Line {
 }
 
 public struct Path {
-    let points: Array<CGPoint>
+    let points: [CGPoint]
     
-    public init(points: Array<CGPoint>) {
+    public init(points: [CGPoint]) {
         self.points = points
     }
 }
 
 public class TraceView: UIView {
-    private var lines: Array<Line> = []
-    private var _expectedPaths: Array<Path> = []
-    private var _expectedPathsWithWaypoints: Array<Path> = []
+    private var lines: [Line] = []
     private var expectedPathView: UIImageView
+    private var expectedPathsWithWaypoints: [Path]
     private var drawingView: UIImageView
     private var _backgroundView: UIImageView?
     private let maxDistance: CGFloat = 20
-    private var pendingPoints: Array<CGPoint> = []
+    private var pendingPoints: [CGPoint] = []
     private var isComplete: Bool { return pendingPoints.isEmpty }
-    private var _keyPointImage: UIImage?
-    private var imageViews: Array<UIImageView> = []
+    private var imageViews: [UIImageView] = []
     
-    public var expectedPaths: Array<Path> {
-        get { return _expectedPathsWithWaypoints }
-        set {
-            _expectedPaths = newValue
-            _expectedPathsWithWaypoints = newValue.map {
+    public var expectedPaths: [Path] {
+        didSet {
+            expectedPathsWithWaypoints = expectedPaths.map {
                 let points = withAddedWayPoints(maxDistance: maxDistance, path: $0.points)
                 return Path(points: points)
             }
-            pendingPoints = Array(_expectedPathsWithWaypoints.compactMap{$0.points}.joined())
-            drawExpectedPaths(paths: newValue)
+            pendingPoints = Array(expectedPathsWithWaypoints.compactMap{$0.points}.joined())
+            drawExpectedPaths(paths: expectedPaths)
         }
     }
     
     public var keyPointImage: UIImage? {
-        get { return _keyPointImage }
-        set {
-            _keyPointImage = newValue
-            guard let image = newValue else {
+        didSet {
+            guard let image = keyPointImage else {
                 imageViews.forEach{$0.removeFromSuperview()}
                 imageViews = []
                 return
             }
             
-            let frames = _expectedPaths.compactMap{$0.points}.joined().map {
+            let frames = expectedPaths.compactMap{$0.points}.joined().map {
                 TraceView.getFrameFrom(maxDistance: maxDistance, andPt: $0)
             }
             
@@ -67,13 +63,13 @@ public class TraceView: UIView {
         return CGRect(origin: offsetPt, size: imageSize)
     }
     
-    private func withAddedWayPoints(maxDistance: CGFloat, path: Array<CGPoint>) -> Array<CGPoint> {
+    private func withAddedWayPoints(maxDistance: CGFloat, path: [CGPoint]) -> [CGPoint] {
         
         guard var last = path.first else {
             return path
         }
         
-        var newPath = Array<CGPoint>()
+        var newPath = [CGPoint]()
         newPath.append(last)
         
         path[1..<path.count].forEach { pt in
@@ -89,12 +85,12 @@ public class TraceView: UIView {
     /// Returns the waypoints that should be inserted
     /// between two points so that the resulting
     /// points are less than the given distance apart.
-    public static func calculateWaypoints(maxDistance: CGFloat, start: CGPoint, end: CGPoint) -> Array<CGPoint> {
+    public static func calculateWaypoints(maxDistance: CGFloat, start: CGPoint, end: CGPoint) -> [CGPoint] {
         
         let distance = TraceView.getDistance(start: start, end: end)
         
         if distance < maxDistance {
-            return Array<CGPoint>()
+            return [CGPoint]()
         }
         
         // the points are too far apart, so we need to add
@@ -118,11 +114,9 @@ public class TraceView: UIView {
     }
     
     public var backgroundView: UIImageView? {
-        get { return _backgroundView }
-        set {
-            _backgroundView?.removeFromSuperview()
-            _backgroundView = newValue
-            guard let view = newValue else { return }
+        didSet {
+            oldValue?.removeFromSuperview()
+            guard let view = backgroundView else { return }
             view.contentMode = .scaleAspectFit
             // we hard-code this for now so it looks the same on phones
             // other than the iPhone XR
@@ -132,7 +126,7 @@ public class TraceView: UIView {
         }
     }
     
-    private func drawExpectedPaths(paths: Array<Path>) {
+    private func drawExpectedPaths(paths: [Path]) {
         UIGraphicsBeginImageContext(expectedPathView.bounds.size)
         guard let context = UIGraphicsGetCurrentContext() else {
                 print("Could not retrieve context")
